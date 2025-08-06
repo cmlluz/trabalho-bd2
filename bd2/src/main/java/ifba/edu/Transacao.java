@@ -1,14 +1,17 @@
 package ifba.edu;
+
+import java.io.Serializable;
 import java.util.Map;
 
-public class Transacao {
-    private Map<TipoProdutos,Produtos> transacao;
+public class Transacao implements Serializable {
 
-    public Transacao(Map<TipoProdutos,Produtos> transacao) {
+    private Map<TipoProdutos, Produtos> transacao;
+
+    public Transacao(Map<TipoProdutos, Produtos> transacao) {
         this.transacao = transacao;
     }
 
-     public Boolean hasProduto(TipoProdutos chave) {
+    public Boolean hasProduto(TipoProdutos chave) {
         return transacao.containsKey(chave);
     }
 }

@@ -6,16 +6,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        List<Transacao> transacoes = CTransacao.carregarTransacoes();
-        List<TipoProdutos> produtos = new ArrayList<TipoProdutos>();
+        List<Transacao> transacoes = new ArrayList<>();
+        List<TipoProdutos> produtos = new ArrayList<>();
 
-        produtos.add(TipoProdutos.LEITE);
-        produtos.add(TipoProdutos.ARROZ);
-        produtos.add(TipoProdutos.CAFE);
-        produtos.add(TipoProdutos.CERVEJA);
-        produtos.add(TipoProdutos.FEIJAO);
-        produtos.add(TipoProdutos.MANTEIGA);
-        produtos.add(TipoProdutos.PAO);
+        Serializacao.carregar(transacoes, produtos);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -25,44 +19,44 @@ public class Main {
         System.out.print("Digite a confiança mínima: ");
         double valorConfianca = scanner.nextDouble();
 
+        System.out.println();
 
         for (int i = 0; i < produtos.size(); i++) {
-           
-          
-           for (int j = i + 1; j < produtos.size(); j++) {
-               
+
+            for (int j = i + 1; j < produtos.size(); j++) {
+
                 int countI = 0;
                 int countJ = 0;
                 int countIJ = 0;
 
                 for (var transacao : transacoes) {
-                    if(transacao.hasProduto(produtos.get(i)))
+                    if (transacao.hasProduto(produtos.get(i)))
                         countI++;
-                    if(transacao.hasProduto(produtos.get(j)))
+                    if (transacao.hasProduto(produtos.get(j)))
                         countJ++;
-                    if(transacao.hasProduto(produtos.get(i)) && transacao.hasProduto(produtos.get(j)))  
-                        countIJ++; 
-               }
+                    if (transacao.hasProduto(produtos.get(i)) && transacao.hasProduto(produtos.get(j)))
+                        countIJ++;
+                }
 
                 double suporte = (double) countIJ / transacoes.size();
-                if(suporte >= valorSuporte){
+                if (suporte >= valorSuporte) {
                     System.out.println(produtos.get(i).toString() + " " + produtos.get(j).toString());
                     System.out.println("Suporte: " + suporte);
                     double confiancaIJ = (double) countIJ / countI;
-                    double confiancaJI = (double) countIJ / countJ;    
-                    
-                    if(confiancaIJ >= valorConfianca){
-                        System.out.println(produtos.get(i).toString() + " -> "+ produtos.get(j).toString());
+                    double confiancaJI = (double) countIJ / countJ;
+
+                    if (confiancaIJ >= valorConfianca) {
+                        System.out.println(produtos.get(i).toString() + " -> " + produtos.get(j).toString());
                         System.out.println("Confiança: " + confiancaIJ);
                     }
-                    if(confiancaJI >= valorConfianca){
+                    if (confiancaJI >= valorConfianca) {
                         System.out.println(produtos.get(j).toString() + " -> " + produtos.get(i).toString());
                         System.out.println("Confiança: " + confiancaJI);
                     }
                 }
             }
-        }         
+        }
         scanner.close();
+        Serializacao.grava(transacoes, produtos);
     }
 }
-

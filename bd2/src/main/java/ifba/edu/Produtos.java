@@ -1,7 +1,10 @@
 package ifba.edu;
-public class Produtos {
+
+import java.io.Serializable;
+
+public class Produtos implements Serializable {
     private TipoProdutos produto;
-  
+
     public Produtos(TipoProdutos produto) {
         this.produto = produto;
     }
@@ -14,5 +17,5 @@ public class Produtos {
     public String toString() {
         return "Produtos [produto=" + produto + ", toString()=" + super.toString() + "]";
     }
-     
+
 }

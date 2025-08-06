@@ -72,4 +72,18 @@ public class CTransacao {
 
         return transacoes;
     }
+
+    public static List<TipoProdutos> carregarProdutos() {
+        List<TipoProdutos> produtos = new ArrayList<TipoProdutos>();
+
+        produtos.add(TipoProdutos.LEITE);
+        produtos.add(TipoProdutos.ARROZ);
+        produtos.add(TipoProdutos.CAFE);
+        produtos.add(TipoProdutos.CERVEJA);
+        produtos.add(TipoProdutos.FEIJAO);
+        produtos.add(TipoProdutos.MANTEIGA);
+        produtos.add(TipoProdutos.PAO);
+
+        return produtos;
+    }
 }
