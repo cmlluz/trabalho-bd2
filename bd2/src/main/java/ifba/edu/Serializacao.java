@@ -7,25 +7,23 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class Serializacao {
-    public static void grava(List<Transacao> transacoes, List<TipoProdutos> produtos) {
-        try (FileOutputStream fOut = new FileOutputStream("produto.ser");
+    public static void grava(DataBase db) {
+        try (FileOutputStream fOut = new FileOutputStream("produto.bin");
                 ObjectOutputStream oOut = new ObjectOutputStream(fOut)) {
-            oOut.writeObject(transacoes);
-            oOut.writeObject(produtos);
+            oOut.writeObject(db);
         } catch (Exception e) {
             System.out.println("Deu erro!");
         }
     }
 
-    public static void carregar(List<Transacao> transacoes, List<TipoProdutos> produtos) {
-        try (FileInputStream fOut = new FileInputStream("produto.ser");
+    public static DataBase carregar() {
+        try (FileInputStream fOut = new FileInputStream("produto.bin");
                 ObjectInputStream oOut = new ObjectInputStream(fOut)) {
-            transacoes = (List<Transacao>) oOut.readObject();
-            produtos = (List<TipoProdutos>) oOut.readObject();
+            DataBase db = (DataBase) oOut.readObject();
+            return db;
         } catch (Exception e) {
             System.out.println("Deu erro!");
-            transacoes.addAll(CTransacao.carregarTransacoes());
-            produtos.addAll(CTransacao.carregarProdutos());
+            return new DataBase(CTransacao.carregarTransacoes(), CTransacao.carregarProdutos());
         }
     }
 }

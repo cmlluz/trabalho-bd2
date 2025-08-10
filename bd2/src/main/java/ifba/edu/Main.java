@@ -6,10 +6,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        List<Transacao> transacoes = new ArrayList<>();
-        List<TipoProdutos> produtos = new ArrayList<>();
+        List<Transacao> transacoes;
+        List<TipoProdutos> produtos;
 
-        Serializacao.carregar(transacoes, produtos);
+        var db = Serializacao.carregar();
+
+        transacoes = db.getTransacoes();
+        produtos = db.getProdutos();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -57,6 +60,6 @@ public class Main {
             }
         }
         scanner.close();
-        Serializacao.grava(transacoes, produtos);
+        Serializacao.grava(db);
     }
 }
